@@ -1,6 +1,7 @@
 from os.path import exists
 from requests import request
 from json import loads, dumps
+from os import system, name
 
 # dictionary of letters that are correct and their known positions
 correct = {}
@@ -14,20 +15,23 @@ allWords = []
 # dictionary of words and their frequency in English
 wordFrequency = {}
 
-end = "XXX"
+END = "XXX"
+
+def cls():
+    system('cls' if name == 'nt' else 'clear')
 
 def getPatternCommandline():
-    print("Enter xxx to exit")
+    print(f"Enter {END} to exit")
     # uppercase guess to standardize letters
     guess = input("Enter guess: ").upper()
-    if guess != end:
+    if guess != END:
         pattern = input("Enter results\n_ for not in word, lowercase for in word but wrong spot, uppercase for in word and correct spot\n: ")
         setPatterns(guess, pattern)
     return guess
 
 
 def setPatterns(guess, pattern):
-    for i in range(len(guess)):
+    for i, _ in enumerate(guess):
         # check that the letter at position[i] is not in word
         # duplicate letters cannot be added to the list of letters not in the word if they were otherwise decided to be in the word and/or in the correct place
         if pattern[i] == "_" and guess[i].lower() not in correct.keys() and (guess[i].lower() not in inWord.keys() and guess[i] not in guess[i+1:]):
@@ -100,7 +104,7 @@ if __name__ == "__main__":
             wordFrequency = loads(f.read())
     # else get word frequency from github and write to disk if desired
     else:
-        wordFrequency = loads(request("GET", "https://raw.githubusercontent.com/ryankupk/wordle-hacks/main/unigram_freq.json").text)
+        wordFrequency = loads(request("GET", r"https://raw.githubusercontent.com/ryankupk/wordle-hacks/main/unigram_freq.json").text)
         makeFile = input("Write word frequency to disk? (y or n): ")
         if makeFile.upper() == "Y":
             with open(FREQUENCY_PATH, "w") as f:
@@ -109,7 +113,7 @@ if __name__ == "__main__":
     # when the solution is entered and all letters are in the correct place, exit
     while len(correct) < 5:
         guess = getPatternCommandline()
-        if guess == end or len(correct) == 5: break
+        if guess == END or len(correct) == 5: break
         possibleWords = []
         for word in allWords:
             # flag to skip the word if it doesn't meet criteria that indicate that it could be a possible solution
@@ -143,7 +147,7 @@ if __name__ == "__main__":
 
         possibleWords = sortPossibleWords(possibleWords)
 
-        print("\n" * 1000)
+        cls()
         print("Possible solutions:")
         for word in possibleWords[:-1]:
             print(word, end=", ")
