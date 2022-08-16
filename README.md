@@ -17,7 +17,7 @@ text entered after "Enter guess: ": crane
 
 text entered after the next prompt would be __\_N\_
 
-all possible solutions are printed to the console and another prompt for a guess is given
+all possible solutions are printed to the console and another prompt for a guess is given in order from least frequently used (top left) to most frequently (bottom right)
 
 subsequent wordle guess: pious
 
@@ -29,5 +29,7 @@ text entered after the next prompt would be P_ou_
 
 etc.
 
+Note: the sorting used is a proxy for likelihood that a possible solution given is the actual solution. Most/all wordle solutions are words that are used at least relatively often (like crane), whereas other allowed guesses may be extremely uncommon (like yodhs or poopy).
 
-Special thanks to [@tabatkins](https://github.com/tabatkins) for uploading the [wordle word list](https://github.com/tabatkins/wordle-list).
+
+Special thanks to [@tabatkins](https://github.com/tabatkins) for uploading the [wordle word list](https://github.com/tabatkins/wordle-list) and [rtatman](https://www.kaggle.com/rtatman) on Kaggle for the [list of words and their frequencies](https://www.kaggle.com/datasets/rtatman/english-word-frequency). 
