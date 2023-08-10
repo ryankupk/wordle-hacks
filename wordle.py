@@ -15,7 +15,7 @@ allWords = []
 # dictionary of words and their frequency in English
 wordFrequency = {}
 
-END = "XXX"
+END = "\0"
 
 def cls():
     system('cls' if name == 'nt' else 'clear')
@@ -34,8 +34,10 @@ def setPatterns(guess, pattern):
     for i, _ in enumerate(guess):
         # check that the letter at position[i] is not in word
         # duplicate letters cannot be added to the list of letters not in the word if they were otherwise decided to be in the word and/or in the correct place
-        if pattern[i] == "_" and guess[i].lower() not in correct.keys() and (guess[i].lower() not in inWord.keys() and guess[i] not in guess[i+1:]):
-            notInWord.add(guess[i].lower())
+        if  pattern[i] == "_" and guess[i].lower() not in correct.keys() \
+            and (guess[i].lower() not in inWord.keys() \
+            and guess[i] not in guess[i+1:]):
+                notInWord.add(guess[i].lower())
 
         # check if the letter is in the word and correct place
         elif guess[i] == pattern[i]:
