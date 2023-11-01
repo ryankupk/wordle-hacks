@@ -15,7 +15,7 @@ allWords = []
 # dictionary of words and their frequency in English
 wordFrequency = {}
 
-END = "\0"
+END = r"\0"
 
 def cls():
     system('cls' if name == 'nt' else 'clear')
@@ -83,7 +83,7 @@ if __name__ == "__main__":
     # if word list file exists, use it to populate allWords list
     if exists(WORD_PATH):
         with open(WORD_PATH, "r") as f:
-            allWords = f.readlines()
+            allWords = f.read().splitlines()
     # else get word list from github and write to disk if desired
     else:
         allWords = request("GET", r"https://raw.githubusercontent.com/ryankupk/wordle-hacks/main/word%20list.txt").text
